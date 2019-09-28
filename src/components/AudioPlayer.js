@@ -13,6 +13,7 @@ export default class AudioPlayer extends Component {
             tracks: [],
             duration: [],
             pos: 0,
+            currentTime: 0,
             playing: false
         }
     }
@@ -53,7 +54,8 @@ export default class AudioPlayer extends Component {
 
         node.addEventListener("timeupdate", () => {
             this.setState({
-                pos: (node.currentTime / node.duration) * 100
+                pos: (node.currentTime / node.duration) * 100,
+                currentTime: node.currentTime,
             });
         });
     }
@@ -84,7 +86,8 @@ export default class AudioPlayer extends Component {
                             <div className="progress_bar_wrapper">
                                 <div className="progress_bar" style={{ width: this.state.pos + '%', height: 5 }} />
                             </div>
-                            <small className="has-text-grey">{this.state.duration[currentSong] / 1000}</small>
+                            <small className="has-text-grey is-pulled-left">{(this.state.currentTime / 100).toFixed(2)}</small>
+                            <small className="has-text-grey is-pulled-right">{parseFloat(this.state.duration[currentSong] / 1000).toFixed(2)}</small>
                             <h1 className="title">{this.state.title[currentSong]}</h1>
                             <h2 className="subtitle has-text-grey">{this.state.artist[currentSong]}</h2>
                             <ul>

@@ -14,6 +14,10 @@ audio {
     display: none;
 }
 
+small{
+    font-size: 12px !important;
+}
+
 /* 
 .column.is-3 {
     width: 27% !important;
@@ -53,7 +57,6 @@ audio {
 
 .progress_bar {
     background: #57d6b6;
-    transition: .2s ease-in;
 }
 
 .progress_bar_wrapper{
@@ -68,6 +71,6 @@ audio {
 
 @media screen and (min-width: 769px), print {
     .column.is-3 {
-        margin: 2rem auto !important;
+        margin: 2.5rem auto !important;
     }
 }
