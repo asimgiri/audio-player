@@ -14,7 +14,7 @@ audio {
     display: none;
 }
 
-small{
+small {
     font-size: 12px !important;
 }
 
@@ -44,6 +44,7 @@ small{
 .audio_player .play {
     width: 100px;
     height: 100px;
+    background: linear-gradient(270deg, rgba(30, 255, 0, 0.5), transparent);
 }
 
 .audio_player .prev, .audio_player .next {
@@ -56,13 +57,14 @@ small{
 }
 
 .progress_bar {
-    background: #57d6b6;
+    background: linear-gradient(270deg, rgba(30, 255, 0, 0.5), #57d6b6);
 }
 
-.progress_bar_wrapper{
-    background: rgb(194, 193, 193);
+.progress_bar_wrapper {
+    background: rgb(194, 193, in193);
     width: 100%;
     height: 5px;
+    border: .5px solid #929292;
 }
 
 .audio_player li {

@@ -14,6 +14,7 @@ export default class AudioPlayer extends Component {
             duration: [],
             pos: 0,
             currentTime: 0,
+            playbackTime: null,
             playing: false
         }
     }
@@ -35,18 +36,24 @@ export default class AudioPlayer extends Component {
                 tracks: [...this.state.tracks, data.tracks.data[i].preview],
                 duration: [...this.state.duration, data.tracks.data[i].duration]
             }, () => {
-                console.log(this.state.title);
-                console.log(this.state.artist);
-                console.log(this.state.tracks);
-                console.log(this.state.duration);
+                // console.log(this.state.tracks);
+                // console.log(this.state.cover);
             })
         }
     }
 
+
+
     playAudio = () => {
         const node = this.myAudio.current;
-        console.log(node);
+        // console.log(node);
+        node.load();
         node.play();
+
+        // const playPromise = node.play();
+        // if (playPromise !== undefined) {
+        //     playPromise.catch(() => { node.play() })
+        // }
 
         this.setState({
             playing: true
@@ -65,8 +72,17 @@ export default class AudioPlayer extends Component {
         node.pause();
 
         this.setState({
-            playing: false
+            playing: false,
+            currentTime: node.currentTime,
+            playbackTime: this.state.currentTime
+        }, () => {
+            this.setState({
+                playbackTime: this.state.currentTime
+            }, () => console.log(this.state.playbackTime))
         })
+
+
+
     }
 
     render() {
@@ -74,7 +90,7 @@ export default class AudioPlayer extends Component {
             <div className="columns">
                 <div className="column is-3">
                     <audio controls ref={this.myAudio}>
-                        <source src={`https://cdns-preview-e.dzcdn.net/stream/c-e77d23e0c8ed7567a507a6d1b6a9ca1b-7.mp3`} />
+                        <source src={this.state.tracks[currentSong]} />
                     </audio>
                     <div className="card has-text-centered audio_player">
                         <div className="card-image">
@@ -96,7 +112,7 @@ export default class AudioPlayer extends Component {
                                     <button
                                         className="button play is-large is-rounded is-primary"
                                         onClick={this.state.playing ? (this.pauseAudio) : (this.playAudio)}>
-                                        <i className={`fas ${this.state.playing ? 'fa-pause' : 'fa-play'} has-text-white`} />
+                                        <i className={`fas ${this.state.playing && this.state.pos != 100 ? 'fa-pause' : 'fa-play'} has-text-white`} />
                                     </button>
                                 </li>
                                 <li><button className="button is-rounded next"><i className="fas fa-step-forward has-text-primary"></i></button></li>
